@@ -59,6 +59,13 @@ PECAS = [
 
 SEQUENCE_ID = len(PECAS)
 
+PESO_MINIMO = 95
+PESO_MAXIMO = 105
+CORES_VALIDAS = ['azul', 'verde']
+COMPRIMENTO_MINIMO = 10
+COMPRIMENTO_MAXIMO = 20    
+
+
 def exibir_peca(peca):
     status_formatado = Fore.GREEN + "APROVADA" if status_peca(peca) == "Aprovada" else Fore.RED + "REPROVADA"
     print(f"ID: {peca['id']} | Peso: {peca['peso']}g | Cor: {peca['cor']} | Comprimento: {peca['comprimento']}cm | Status: {status_formatado}")
@@ -92,10 +99,29 @@ def listar_todas_pecas():
         exibir_peca(peca)
 
 def status_peca(peca):
-    resultado = (peca['peso'] >= 95 and peca['peso'] <= 105) and \
-                (peca['cor'] == "azul" or peca['cor'] == "verde")  and \
-                peca['comprimento'] >= 10 and peca['comprimento'] <= 20
+    resultado = validar_peso(peca) and \
+                validar_cor(peca)  and \
+                validar_comprimento(peca)
     return "Aprovada" if resultado else "Reprovada"
 
 def listar_pecas_por_status(status):
     return [peca for peca in PECAS if status_peca(peca) == status]
+
+def validar_peso(peca):
+    return peca['peso'] >= PESO_MINIMO and peca['peso'] <= PESO_MAXIMO
+
+def validar_cor(peca):
+    return CORES_VALIDAS.count(peca['cor']) > 0
+
+def validar_comprimento(peca):
+    return peca['comprimento'] >= COMPRIMENTO_MINIMO and peca['comprimento'] <= COMPRIMENTO_MAXIMO
+
+def identificar_motivo_reprovacao(peca):
+    motivos = []
+    if not validar_peso(peca):
+        motivos.append(f"Peso {Fore.RED + str(peca['peso']) + Fore.RESET} fora do intervalo ({PESO_MINIMO}-{PESO_MAXIMO})")
+    if not validar_cor(peca):
+        motivos.append(f"Cor {Fore.RED + peca['cor'] + Fore.RESET} inválida (deve ser {', '.join(CORES_VALIDAS)})")
+    if not validar_comprimento(peca):
+        motivos.append(f"Comprimento {Fore.RED + str(peca['comprimento']) + Fore.RESET} fora do intervalo ({COMPRIMENTO_MINIMO}-{COMPRIMENTO_MAXIMO})")
+    return motivos

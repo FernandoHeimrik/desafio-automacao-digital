@@ -5,6 +5,7 @@ from datetime import date
 from colorama import init, Fore
 from peca import *
 from caixa import *
+from relatorio import *
 
 ## Funções auxiliares
 def mensagem_sucesso(texto):
@@ -35,6 +36,22 @@ def pausar():
     input("Pressione Enter para continuar...")
 
 # Funções do sistema de controle de qualidade
+
+def gerar_relatorio_consolidado():
+    total_caixas_fechadas = len(listar_caixas_fechadas())
+    total_pecas_aprovadas = sum(len(caixa['pecas']) for caixa in CAIXAS)
+
+    pecas_reprovadas = listar_pecas_por_status("Reprovada")
+    total_pecas_reprovadas = len(pecas_reprovadas)
+    
+    print(f"Total de Caixas Fechadas: {total_caixas_fechadas}")
+    print(f"Total de Peças {Fore.GREEN}Aprovadas: {Fore.RESET + str(total_pecas_aprovadas)}")
+    print(f"Total de Peças {Fore.RED}Reprovadas: {Fore.RESET + str(total_pecas_reprovadas)}")
+    print("".center(100,'='))
+    print("Motivos de Reprovação:")
+    for peca in pecas_reprovadas:
+        motivos = identificar_motivo_reprovacao(peca)
+        print(f"Peça ID: {peca['id']} - {', '.join(motivos)}")
 
 def listar_pecas(status):
     pecas = listar_pecas_por_status(status)
@@ -68,14 +85,15 @@ def gerar_relatorio():
             opcao = selecionar_opcao()
             match (opcao):
                 case 1:
-                    # TODO: Adicionar geração de relatorio
-                    break
+                    exibir_cabecalho(" Relatório Consolidado ")
+                    gerar_relatorio_consolidado()
                 case 0:
                     break
                 case _:
                     print("Opção inválida!")
                     print('Digite valores numéricos entre 0 e 1!')
                     time.sleep(2)
+            pausar()
         except ValueError:
             print('Os valores devem ser números inteiros!')
             time.sleep(2)
