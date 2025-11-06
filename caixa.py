@@ -3,7 +3,7 @@ from peca import *
 CAIXAS = [
     {
         'id': 1,
-        'status': 'fechada',
+        'status': 'aberta',
         'pecas': PECAS.copy()
     }
 ]

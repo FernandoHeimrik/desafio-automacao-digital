@@ -5,7 +5,6 @@ from datetime import date
 from colorama import init, Fore
 from peca import *
 from caixa import *
-from relatorio import *
 
 ## Funções auxiliares
 def mensagem_sucesso(texto):
