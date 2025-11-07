@@ -10,8 +10,8 @@ PECAS = [
     {
         'id': 2,
         'peso': 90,
-        'cor': 'vermelho',
-        'comprimento': 25
+        'cor': 'azul',
+        'comprimento': 20
     },
     {
         'id': 3,
@@ -21,7 +21,7 @@ PECAS = [
     },
     {
         'id': 4,
-        'peso': 110,
+        'peso': 105,
         'cor': 'azul',
         'comprimento': 12
     },
@@ -33,8 +33,8 @@ PECAS = [
     },
     {
         'id': 6,
-        'peso': 85,
-        'cor': 'amarelo',
+        'peso': 99,
+        'cor': 'azul',
         'comprimento': 15
     },
     {
@@ -47,7 +47,7 @@ PECAS = [
         'id': 8,
         'peso': 105,
         'cor': 'verde',
-        'comprimento': 22
+        'comprimento': 20
     },
     {
         'id': 9,
