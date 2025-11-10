@@ -9,7 +9,7 @@ PECAS = [
     },
     {
         'id': 2,
-        'peso': 90,
+        'peso': 95,
         'cor': 'azul',
         'comprimento': 20
     },
